@@ -1,0 +1,59 @@
+{
+  "name": "vscode-a11y-bridge",
+  "displayName": "A11y Bridge",
+  "description": "Receive accessibility violations from the React Component Highlighter Chrome extension and open them in Copilot Chat with full source context.",
+  "version": "0.1.0",
+  "publisher": "local",
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "categories": ["Other"],
+  "activationEvents": ["onStartupFinished"],
+  "main": "./out/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "a11yBridge.startServer",
+        "title": "A11y Bridge: Start WebSocket Server"
+      },
+      {
+        "command": "a11yBridge.stopServer",
+        "title": "A11y Bridge: Stop WebSocket Server"
+      }
+    ],
+    "configuration": {
+      "title": "A11y Bridge",
+      "properties": {
+        "a11yBridge.port": {
+          "type": "number",
+          "default": 7891,
+          "description": "WebSocket port the server listens on for incoming Chrome extension messages."
+        },
+        "a11yBridge.autoStart": {
+          "type": "boolean",
+          "default": true,
+          "description": "Automatically start the WebSocket server when VS Code launches."
+        },
+        "a11yBridge.sourceRoot": {
+          "type": "string",
+          "default": "",
+          "description": "Absolute path to your project root, used to resolve dev-server source URLs to local file paths (e.g. /Users/you/project). Leave empty to auto-detect from workspace folders."
+        }
+      }
+    }
+  },
+  "dependencies": {
+    "ws": "^8.17.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "@types/vscode": "^1.85.0",
+    "@types/ws": "^8.5.10",
+    "typescript": "^5.4.0"
+  },
+  "scripts": {
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "package": "vsce package"
+  }
+}
